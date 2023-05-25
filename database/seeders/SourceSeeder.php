@@ -15,20 +15,21 @@ class SourceSeeder extends Seeder
     {
         // New York Times
         Source::create([
-            'key' => 'nytimes',
+            'key' => 'nyt',
             'name' => 'New York Times',
+            'type' => 'newyorktimes',
+        ]);
+        Source::create([
+            'key' => 'inyt',
+            'name' => 'International New York Times',
+            'type' => 'newyorktimes',
         ]);
 
         // The Guardian
         Source::create([
-            'key' => 'guardian',
+            'key' => 'theguardian',
             'name' => 'The Guardian',
-        ]);
-
-        // News API
-        Source::create([
-            'key' => 'newsapi',
-            'name' => 'News API',
+            'type' => 'theguardian',
         ]);
     }
 }
