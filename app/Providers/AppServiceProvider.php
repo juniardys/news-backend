@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
             'source' => 'App\Models\Source',
             'category' => 'App\Models\Category',
             'author' => 'App\Models\Author',
+            'user' => 'App\Models\User',
         ]);
     }
 }
