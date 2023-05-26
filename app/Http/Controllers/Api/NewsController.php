@@ -7,8 +7,9 @@ use App\Models\News;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\NewsListRequest;
 use App\Http\Resources\NewsResource;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\NewsListRequest;
 
 class NewsController extends Controller
 {
@@ -29,6 +30,21 @@ class NewsController extends Controller
             $sources = $request->get('sources');
             $start_date = $request->get('start_date');
             $end_date = $request->get('end_date');
+
+            // If Authenticated
+            $user = $request->user();
+            if ($user) {
+                $sourcePreferences = $user->sourcePreferences->pluck('id');
+                $categoryPreferences = $user->categoryPreferences->pluck('id');
+
+                if ($sourcePreferences->count() > 0) {
+                    $query = $query->whereIn('category_id', $sourcePreferences);
+                }
+
+                if ($categoryPreferences->count() > 0) {
+                    $query = $query->whereIn('source_id', $categoryPreferences);
+                }
+            }
 
             if ($search) {
                 $query = $query->search($search);

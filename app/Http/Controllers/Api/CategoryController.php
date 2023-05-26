@@ -21,7 +21,14 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         try {
-            $categories = Category::orderBy('name', 'asc')->get();
+            $user = $request->user();
+
+            // If Authenticated
+            if ($user && $user->categoryPreferences->count() > 0) {
+                $categories = $user->categoryPreferences;
+            } else {
+                $categories = Category::orderBy('name', 'asc')->get();
+            }
             return $this->responseSuccess(CategoryResource::collection($categories), 'Category list retrieved successfully!');
         } catch (\Throwable $th) {
             return $this->responseError($th->getMessage());
