@@ -14,6 +14,10 @@ class News extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
     public function source()
     {
         return $this->belongsTo(Source::class);
@@ -27,5 +31,16 @@ class News extends Model
     public function author()
     {
         return $this->belongsTo(Author::class);
+    }
+
+    public function scopeSearch($query, $search = null)
+    {
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $search = str_replace(' ', '|', addslashes($search));
+                $q->where('title', 'regexp', $search)
+                    ->orWhere('content', 'regexp', $search);
+            });
+        }
     }
 }
