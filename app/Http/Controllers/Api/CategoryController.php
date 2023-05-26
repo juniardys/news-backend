@@ -22,7 +22,7 @@ class CategoryController extends Controller
     {
         try {
             $categories = Category::orderBy('name', 'asc')->get();
-            return $this->responseSuccess(CategoryResource::collection($categories), 'Category list retrieved succesfully!');
+            return $this->responseSuccess(CategoryResource::collection($categories), 'Category list retrieved successfully!');
         } catch (\Throwable $th) {
             return $this->responseError($th->getMessage());
         }

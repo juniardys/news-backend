@@ -22,7 +22,7 @@ class SourceController extends Controller
     {
         try {
             $sources = Source::orderBy('name', 'asc')->get();
-            return $this->responseSuccess(SourceResource::collection($sources), 'Source list retrieved succesfully!');
+            return $this->responseSuccess(SourceResource::collection($sources), 'Source list retrieved successfully!');
         } catch (\Throwable $th) {
             return $this->responseError($th->getMessage());
         }

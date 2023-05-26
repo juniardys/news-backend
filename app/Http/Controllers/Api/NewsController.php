@@ -35,12 +35,12 @@ class NewsController extends Controller
             }
 
             if ($categories) {
-                $categories = array_map('trim', explode(',', $categories));
+                $categories = $categories ? array_map('trim', explode(',', $categories)) : [];
                 $query = $query->whereIn('category_id', $categories);
             }
 
             if ($sources) {
-                $sources = array_map('trim', explode(',', $sources));
+                $sources = $sources ? array_map('trim', explode(',', $sources)) : [];
                 $query = $query->whereIn('source_id', $sources);
             }
 
@@ -53,7 +53,7 @@ class NewsController extends Controller
             $news = $query->with(['source', 'category', 'author'])
                 ->orderBy('published_at', 'desc')
                 ->paginate($request->limit ?: 10);
-            return $this->responseSuccess(NewsResource::collection($news)->response()->getData(true), 'News list retrieved succesfully!');
+            return $this->responseSuccess(NewsResource::collection($news)->response()->getData(true), 'News list retrieved successfully!');
         } catch (\Throwable $th) {
             return $this->responseError($th->getMessage());
         }

@@ -22,7 +22,7 @@ class AuthorController extends Controller
     {
         try {
             $authors = Author::orderBy('name', 'asc')->get();
-            return $this->responseSuccess(AuthorResource::collection($authors), 'Author list retrieved succesfully!');
+            return $this->responseSuccess(AuthorResource::collection($authors), 'Author list retrieved successfully!');
         } catch (\Throwable $th) {
             return $this->responseError($th->getMessage());
         }
