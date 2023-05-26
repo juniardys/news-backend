@@ -6,7 +6,7 @@ namespace App\Models;
 use App\Models\Author;
 use App\Models\Source;
 use App\Models\Category;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

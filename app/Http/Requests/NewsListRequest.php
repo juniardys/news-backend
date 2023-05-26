@@ -19,8 +19,8 @@ class NewsListRequest extends FormRequest
             'limit' => 'numeric',
             'sources' => [(new Delimited('numeric'))],
             'categories' => [(new Delimited('numeric'))],
-            'start_date' => 'date',
-            'end_date' => 'after_or_equal:start_date',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|after_or_equal:start_date',
         ];
     }
 }

@@ -58,7 +58,7 @@ class AuthController extends Controller
             $token = $user->createToken('Laravel Password Grant Client')->accessToken;
 
             return $this->responseSuccess([
-                'token' => $token->token,
+                'token' => $token,
                 'user' => new UserResource($user),
             ], 'Successfully login!');
         } catch (\Throwable $th) {

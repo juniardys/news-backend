@@ -24,4 +24,17 @@ Route::prefix('v1')->group(function () {
     Route::get('categories', [\App\Http\Controllers\Api\CategoryController::class, 'index']);
     Route::get('authors', [\App\Http\Controllers\Api\AuthorController::class, 'index']);
     Route::get('news', [\App\Http\Controllers\Api\NewsController::class, 'index']);
+
+    // Authenticated
+    Route::middleware(['auth:api'])->group(function () {
+        // User
+        Route::prefix('user')->group(function() {
+            Route::get('/', [\App\Http\Controllers\Api\UserController::class, 'index']);
+            Route::post('preferences', [\App\Http\Controllers\Api\UserController::class, 'savePreferences']);
+        });
+    });
+});
+
+Route::fallback(function (){
+    abort(404, 'API resource not found');
 });
