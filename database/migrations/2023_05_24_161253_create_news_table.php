@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('source_id');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('author_id');
-            $table->date('published_at');
+            $table->datetime('published_at');
             $table->timestamps();
         });
     }

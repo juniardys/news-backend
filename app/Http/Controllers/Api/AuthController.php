@@ -41,24 +41,37 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * API Login
+     *
+     * @param LoginRequest $request
+     * @return void
+     */
     public function login(LoginRequest $request) {
         try {
             if (!Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
                 throw new \Exception("Invalid login!");
             }
 
-            $user = $request->user();
+            $user = $request->user()->load(['sourcePreferences', 'categoryPreferences', 'authorPreferences']);
+
             $token = $user->createToken('Laravel Password Grant Client')->accessToken;
 
             return $this->responseSuccess([
                 'token' => $token->token,
-                'user' => $user,
+                'user' => new UserResource($user),
             ], 'Successfully login!');
         } catch (\Throwable $th) {
             return $this->responseError($th->getMessage());
         }
     }
 
+    /**
+     * API Logout
+     *
+     * @param Request $request
+     * @return void
+     */
     public function logout(Request $request) {
         try {
             if ($request->user()) {
