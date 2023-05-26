@@ -7,6 +7,7 @@ use App\Models\News;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsListRequest;
 use App\Http\Resources\NewsResource;
 
 class NewsController extends Controller
@@ -16,10 +17,10 @@ class NewsController extends Controller
     /**
      * Get source list
      *
-     * @param Request $request
+     * @param NewsListRequest $request
      * @return void
      */
-    public function index(Request $request)
+    public function index(NewsListRequest $request)
     {
         try {
             $query = new News;
