@@ -34,7 +34,13 @@ class AuthController extends Controller
             ]);
 
             DB::commit();
-            return $this->responseSuccess(new UserResource($user), 'Successfully registered!');
+
+            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+
+            return $this->responseSuccess([
+                'token' => $token,
+                'user' => new UserResource($user),
+            ], 'Successfully registered!');
         } catch (\Throwable $th) {
             DB::rollback();
             return $this->responseError($th->getMessage());
