@@ -49,11 +49,11 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request) {
         try {
-            if (!Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+            if (!Auth::guard('web')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
                 throw new \Exception("Invalid login!");
             }
 
-            $user = $request->user()->load(['sourcePreferences', 'categoryPreferences', 'authorPreferences']);
+            $user = Auth::guard('web')->user()->load(['sourcePreferences', 'categoryPreferences', 'authorPreferences']);
 
             $token = $user->createToken('Laravel Password Grant Client')->accessToken;
 
