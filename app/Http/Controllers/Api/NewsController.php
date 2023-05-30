@@ -69,6 +69,9 @@ class NewsController extends Controller
             $news = $query->with(['source', 'category', 'author'])
                 ->orderBy('published_at', 'desc')
                 ->paginate($request->limit ?: 10);
+
+            $news->appends($request->all());
+
             return $this->responseSuccess(NewsResource::collection($news)->response()->getData(true), 'News list retrieved successfully!');
         } catch (\Throwable $th) {
             return $this->responseError($th->getMessage());
