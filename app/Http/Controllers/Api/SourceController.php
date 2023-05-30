@@ -21,14 +21,7 @@ class SourceController extends Controller
     public function index(Request $request)
     {
         try {
-            $user = $request->user();
-
-            // If Authenticated
-            if ($user && $user->sourcePreferences->count() > 0) {
-                $sources = $user->sourcePreferences;
-            } else {
-                $sources = Source::orderBy('name', 'asc')->get();
-            }
+            $sources = Source::orderBy('name', 'asc')->get();
             return $this->responseSuccess(SourceResource::collection($sources), 'Source list retrieved successfully!');
         } catch (\Throwable $th) {
             return $this->responseError($th->getMessage());

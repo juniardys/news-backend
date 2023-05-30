@@ -21,14 +21,7 @@ class AuthorController extends Controller
     public function index(Request $request)
     {
         try {
-            $user = $request->user();
-
-            // If Authenticated
-            if ($user && $user->authorPreferences->count() > 0) {
-                $authors = $user->authorPreferences;
-            } else {
-                $authors = Author::orderBy('name', 'asc')->get();
-            }
+            $authors = Author::orderBy('name', 'asc')->get();
             return $this->responseSuccess(AuthorResource::collection($authors), 'Author list retrieved successfully!');
         } catch (\Throwable $th) {
             return $this->responseError($th->getMessage());
