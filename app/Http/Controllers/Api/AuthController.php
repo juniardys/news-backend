@@ -56,7 +56,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request) {
         try {
             if (!Auth::guard('web')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
-                throw new \Exception("Invalid login!");
+                throw new \Exception("Invalid login credentials!");
             }
 
             $user = Auth::guard('web')->user()->load(['sourcePreferences', 'categoryPreferences', 'authorPreferences']);
