@@ -1,3 +1,4 @@
-mysql_connector_repackaged==0.3.1
+mysql-connector-python==8.0.25
 python-dotenv==1.0.0
-Requests==2.31.0
+python-slugify==8.0.1
+requests==2.31.0

@@ -1,33 +1,33 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Python;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
-class FetchNews extends Command
+class InstallRequirements extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:fetch-news';
+    protected $signature = 'python:install-requirements';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Fetch news from api';
+    protected $description = 'Installing python requirements';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $process = new Process(['python', 'python/fetch_news.py']);
+        $process = new Process(['pip', 'install', '-r', 'python/requirements.txt']);
         $process->run(function($type, $buffer) {
             if (Process::ERR === $type) {
                 echo 'ERR > '.$buffer;
