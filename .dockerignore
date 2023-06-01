@@ -9,4 +9,3 @@ Dockerfile
 Makefile
 docker-compose.yml
 phpunit.xml
-vendor
