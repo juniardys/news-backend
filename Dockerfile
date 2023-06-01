@@ -22,13 +22,16 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Copy application files
 COPY . /var/www/app
+COPY .env.docker /var/www/app/.env
 
 # Install python
 RUN apt-get install -y python3 python3-pip
 
 # Install Cron
 RUN apt-get install -y cron
-RUN echo "* * * * * root php /var/www/artisan schedule:run >> /var/log/cron.log 2>&1" >> /etc/crontab
+RUN echo "* * * * * cd /var/www/app && /usr/local/bin/php artisan schedule:run schedule:run >> /var/log/cron.log 2>&1" >> /etc/cron.d/cron
+RUN chmod 0644 /etc/cron.d/cron
+RUN crontab -u root /etc/cron.d/cron
 RUN touch /var/log/cron.log
 
 # Run composer install

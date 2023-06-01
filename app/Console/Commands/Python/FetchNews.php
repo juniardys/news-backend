@@ -23,11 +23,19 @@ class FetchNews extends Command
     protected $description = 'Fetch news from api';
 
     /**
+    * The number of seconds the job can run before timing out.
+    *
+    * @var int
+    */
+    public $timeout = 3600;
+
+    /**
      * Execute the console command.
      */
     public function handle()
     {
         $process = new Process(['python3', '-u', 'python/fetch_news.py']);
+        $process->setTimeout($this->timeout);
         $process->run(function($type, $buffer) {
             if (Process::ERR === $type) {
                 echo 'ERR > '.$buffer;

@@ -1,0 +1,12 @@
+.docker
+.dockerignore
+.editorconfig
+.env
+.git
+.gitattributes
+.gitignore
+Dockerfile
+Makefile
+docker-compose.yml
+phpunit.xml
+vendor
