@@ -34,21 +34,9 @@ RUN chmod 0644 /etc/cron.d/cron
 RUN crontab -u root /etc/cron.d/cron
 RUN touch /var/log/cron.log
 
-# Run composer install
-RUN composer install
-
 # Folder permissions
 RUN chown -R www-data:www-data /var/www/app
 RUN chmod -R 755 /var/www/app
-
-# Generate laravel key
-RUN php artisan key:generate
-
-# Clear laravel cache
-RUN php artisan optimize:clear
-
-# Install python requirements
-RUN php artisan python:install-requirements
 
 # Expose port
 EXPOSE 9000

@@ -1,5 +1,9 @@
 init-start:
 	docker-compose up -d --build
+	docker exec news-backend-app bash -c 'composer install --optimize-autoloader'
+	docker exec news-backend-app bash -c 'php artisan key:generate'
+	docker exec news-backend-app bash -c 'php artisan optimize:clear'
+	docker exec news-backend-app bash -c 'php artisan python:install-requirements'
 	make fresh-db
 	fetch-news
 
@@ -15,6 +19,10 @@ restart:
 
 build:
 	docker-compose up -d --build
+	docker exec news-backend-app bash -c 'composer install --optimize-autoloader'
+	docker exec news-backend-app bash -c 'php artisan key:generate'
+	docker exec news-backend-app bash -c 'php artisan optimize:clear'
+	docker exec news-backend-app bash -c 'php artisan python:install-requirements'
 
 rebuild:
 	make down
