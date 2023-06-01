@@ -23,6 +23,7 @@ services:
       - .:/var/www/app
       - ./.env.docker:/var/www/app/.env
       - ./.docker/log:/var/log
+      - shareapp:/var/www/app
     depends_on:
       - db
     networks:
@@ -37,7 +38,7 @@ services:
       - app
       - db
     volumes:
-      - .:/var/www/app
+      - shareapp:/var/www/app
       - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
       - news
@@ -45,3 +46,7 @@ services:
 networks:
   news:
     driver: bridge
+
+volumes:
+    shareapp:
+        driver: local
