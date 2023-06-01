@@ -3,9 +3,11 @@ init-start:
 	docker exec news-backend-app bash -c 'composer install --optimize-autoloader'
 	docker exec news-backend-app bash -c 'php artisan key:generate'
 	docker exec news-backend-app bash -c 'php artisan optimize:clear'
-	docker exec news-backend-app bash -c 'php artisan python:install-requirements'
+	docker exec news-backend-app bash -c 'chown -R www-data:www-data /var/www/app'
+	docker exec news-backend-app bash -c 'chmod -R 755 /var/www/app/storage'
 	docker exec news-backend-app bash -c 'php artisan migrate:fresh --seed --force'
 	docker exec news-backend-app bash -c 'php artisan passport:install'
+	docker exec news-backend-app bash -c 'php artisan python:install-requirements'
 	docker exec news-backend-app bash -c 'php artisan python:fetch-sources-and-categories'
 	docker exec news-backend-app bash -c 'php artisan python:fetch-news'
 

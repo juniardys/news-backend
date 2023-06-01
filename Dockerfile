@@ -33,10 +33,6 @@ RUN chmod 0644 /etc/cron.d/cron
 RUN crontab -u root /etc/cron.d/cron
 RUN touch /var/log/cron.log
 
-# Folder permissions
-RUN chown -R www-data:www-data /var/www/app
-RUN chmod -R 755 /var/www/app
-
 # Expose port
 EXPOSE 9000
 
