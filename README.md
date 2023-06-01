@@ -7,6 +7,8 @@ Backend API of News Magazine project
 ### Dependencies
 Install all dependecies below:
 - [docker](https://www.docker.com)
+### Setup Env
+Copy `.env.docker` to `.env` and setup the configurations.
 ### First setup and start
 Run the following command
 ```

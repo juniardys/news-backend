@@ -21,7 +21,6 @@ services:
     build: .
     volumes:
       - .:/var/www/app
-      - ./.env.docker:/var/www/app/.env
       - ./.docker/log:/var/log
     depends_on:
       - db

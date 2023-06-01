@@ -21,8 +21,7 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Copy application files
-COPY . /var/www/app
-COPY .env.docker /var/www/app/.env
+COPY . .
 
 # Install python
 RUN apt-get install -y python3 python3-pip
