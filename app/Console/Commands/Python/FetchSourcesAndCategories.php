@@ -27,7 +27,7 @@ class FetchSourcesAndCategories extends Command
      */
     public function handle()
     {
-        $process = new Process(['python', '-u', 'python/fetch_news.py']);
+        $process = new Process(['python3', '-u', 'python/fetch_news.py']);
         $process->run(function($type, $buffer) {
             if (Process::ERR === $type) {
                 echo 'ERR > '.$buffer;

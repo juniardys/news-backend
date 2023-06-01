@@ -128,9 +128,18 @@ if sources:
                             image = findimage["url"]
 
                     # convert news date
-                    createdat = datetime.strptime(news['created_date'], '%Y-%m-%dT%H:%M:%S%z')
-                    updatedat = datetime.strptime(news['updated_date'], '%Y-%m-%dT%H:%M:%S%z')
-                    publishedat = datetime.strptime(news['published_date'], '%Y-%m-%dT%H:%M:%S%z')
+                    try:
+                        createdat = datetime.strptime(news['created_date'], '%Y-%m-%dT%H:%M:%S%z') if news['created_date'] else datetime.now()
+                    except:
+                        createdat = datetime.now()
+                    try:
+                        updatedat = datetime.strptime(news['updated_date'], '%Y-%m-%dT%H:%M:%S%z') if news['updated_date'] else datetime.now()
+                    except:
+                        updatedat = datetime.now()
+                    try:
+                        publishedat = datetime.strptime(news['published_date'], '%Y-%m-%dT%H:%M:%S%z') if news['published_date'] else datetime.now()
+                    except:
+                        publishedat = datetime.now()
 
                     # insert news
                     sql = "INSERT INTO `news` (title, content, image, original_url, source_id, category_id, author_id, published_at, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
@@ -201,7 +210,10 @@ if source:
                     authors[authorname] = authorid
 
                 # convert news date
-                publishedat = datetime.strptime(news['webPublicationDate'], '%Y-%m-%dT%H:%M:%SZ')
+                try:
+                    publishedat = datetime.strptime(news['webPublicationDate'], '%Y-%m-%dT%H:%M:%SZ') if news['webPublicationDate'] else datetime.now()
+                except:
+                    publishedat = datetime.now()
 
                 # insert news
                 sql = "INSERT INTO `news` (title, original_url, source_id, category_id, author_id, published_at, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
@@ -285,7 +297,10 @@ for categorykey in listcategories:
                 image = news["urlToImage"]
 
                 # convert news date
-                publishedat = datetime.strptime(news['publishedAt'], '%Y-%m-%dT%H:%M:%SZ')
+                try:
+                    publishedat = datetime.strptime(news['publishedAt'], '%Y-%m-%dT%H:%M:%SZ') if news['publishedAt'] else datetime.now()
+                except:
+                    publishedat = datetime.now()
 
                 # insert news
                 sql = "INSERT INTO `news` (title, content, image, original_url, source_id, category_id, author_id, published_at, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
