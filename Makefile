@@ -4,8 +4,10 @@ init-start:
 	docker exec news-backend-app bash -c 'php artisan key:generate'
 	docker exec news-backend-app bash -c 'php artisan optimize:clear'
 	docker exec news-backend-app bash -c 'php artisan python:install-requirements'
-	make fresh-db
-	fetch-news
+	docker exec news-backend-app bash -c 'php artisan migrate:fresh --seed --force'
+	docker exec news-backend-app bash -c 'php artisan passport:install'
+	docker exec news-backend-app bash -c 'php artisan python:fetch-sources-and-categories'
+	docker exec news-backend-app bash -c 'php artisan python:fetch-news'
 
 start:
 	docker-compose up -d
@@ -14,8 +16,8 @@ stop:
 	docker-compose stop
 
 restart:
-	make stop
-	make start
+	docker-compose stop
+	docker-compose up -d
 
 build:
 	docker-compose up -d --build
@@ -25,8 +27,12 @@ build:
 	docker exec news-backend-app bash -c 'php artisan python:install-requirements'
 
 rebuild:
-	make down
-	make build
+	docker-compose down
+	docker-compose up -d --build
+	docker exec news-backend-app bash -c 'composer install --optimize-autoloader'
+	docker exec news-backend-app bash -c 'php artisan key:generate'
+	docker exec news-backend-app bash -c 'php artisan optimize:clear'
+	docker exec news-backend-app bash -c 'php artisan python:install-requirements'
 
 down:
 	docker-compose down
